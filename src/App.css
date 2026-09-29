@@ -1,0 +1,355 @@
+/* ==========================================================================
+   Component styles for the todo app.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Card and header
+   -------------------------------------------------------------------------- */
+
+.app {
+  width: 100%;
+  max-width: 40rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: var(--shadow);
+}
+
+.app__header {
+  margin-bottom: 1.25rem;
+}
+
+.app__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.app__subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.app__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  min-height: 2.25rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.app__hint {
+  margin: 0 0 0 auto;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* --------------------------------------------------------------------------
+   Composer (new task form)
+   -------------------------------------------------------------------------- */
+
+.composer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.composer__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.75rem 0.875rem;
+  color: inherit;
+  font: inherit;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.composer__input::placeholder {
+  color: var(--muted);
+}
+
+.composer__input:focus-visible {
+  border-color: var(--accent);
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.composer__submit {
+  flex: 0 0 auto;
+  padding: 0.75rem 1.25rem;
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 600;
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.composer__submit:hover {
+  filter: brightness(1.08);
+}
+
+.composer__submit:active {
+  transform: translateY(1px);
+}
+
+.composer__submit:focus-visible,
+.ghost-button:focus-visible,
+.filter:focus-visible,
+.todo__action:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Toolbar: filters + counter
+   -------------------------------------------------------------------------- */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.filters {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.filter {
+  padding: 0.375rem 0.75rem;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.filter:hover {
+  color: var(--text);
+}
+
+.filter.is-active {
+  color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+}
+
+.counter {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Task list
+   -------------------------------------------------------------------------- */
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.todo:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+
+.todo--completed {
+  opacity: 0.72;
+}
+
+.todo__checkbox {
+  flex: 0 0 auto;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.todo__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.todo--completed .todo__text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.todo__actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+/* Reveal row actions on hover or keyboard focus; always visible on touch. */
+.todo:hover .todo__actions,
+.todo:focus-within .todo__actions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .todo__actions {
+    opacity: 1;
+  }
+}
+
+.todo__action {
+  padding: 0.25rem 0.5rem;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.todo__action:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.todo__action:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.todo__action--delete:hover:not(:disabled) {
+  color: var(--danger);
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--danger) 35%, transparent);
+}
+
+.todo__edit {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.todo__edit-input {
+  width: 100%;
+  padding: 0.375rem 0.5rem;
+  color: inherit;
+  font: inherit;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+}
+
+.todo__edit-input:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Empty state and footer actions
+   -------------------------------------------------------------------------- */
+
+.empty-state {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-align: center;
+  background: var(--surface-alt);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+.ghost-button {
+  padding: 0.4375rem 0.75rem;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ghost-button:hover:not(:disabled) {
+  color: var(--danger);
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--danger) 35%, transparent);
+}
+
+.ghost-button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* --------------------------------------------------------------------------
+   Small screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 30rem) {
+  .composer {
+    flex-wrap: wrap;
+  }
+
+  .composer__submit {
+    flex: 1 1 100%;
+  }
+
+  .toolbar {
+    justify-content: center;
+  }
+
+  .app__footer {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .app__hint {
+    margin: 0;
+    flex: 1 1 100%;
+  }
+}
+
